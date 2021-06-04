@@ -116,6 +116,8 @@ fossology (4.0.0~rc1-1) unstable; urgency=low
 
  -- Shaheem Azmal M MD <shaheem.azmal@siemens.com>  Tue, 21 Dec 2021 14:44:40 +0530
 
+=======
+>>>>>>> 98d8010d3 (feat(core): microservcies project GSoC 2021)
 fossology (3.11.0-1) unstable; urgency=low
 
   * New upstream release
