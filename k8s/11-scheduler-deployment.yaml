@@ -47,7 +47,7 @@ spec:
           image: fossology/scheduler:latest
           ports:
             - containerPort: 24693
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
               command:

@@ -54,7 +54,7 @@ spec:
             - mountPath: /srv/fossology/repository/
               name: repository      
           image: fossology/wgetagent:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           name: wgetagent
           resources: {}
       restartPolicy: Always

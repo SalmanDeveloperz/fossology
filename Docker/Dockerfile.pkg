@@ -4,7 +4,8 @@
 #
 # Description: Docker container image recipe for pacakges base image
 
-FROM debian:buster-slim as builder
+# FROM debian:buster-slim as builder
+FROM debian:buster-slim AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
@@ -20,7 +21,21 @@ COPY . /fossology_packages/fossology
 
 RUN  ./utils/fo-installdeps -y -b
 
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libdb-dev \
+    libpq-dev \
+    python3-dev \
+    libgcrypt20-dev \
+    libglib2.0-dev \
+    debhelper
+
 RUN  ./utils/fo-debuild --no-sign --no-tar       
+
+ENV FOSSOLOGY_DB_HOST=db
+ENV FOSSOLOGY_DB_NAME=fossology
+ENV FOSSOLOGY_DB_USER=fossy
+ENV FOSSOLOGY_DB_PASSWORD=fossy
 
 FROM scratch
 

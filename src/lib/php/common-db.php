@@ -53,6 +53,14 @@ function DBconnect($sysconfdir, $options="", $exitOnFail=true)
     }
     $options = $dbConf;
   }
+
+  if (getenv('FOSSOLOGY_DB_HOST')) {
+  $options = "dbname=" . (getenv('FOSSOLOGY_DB_NAME') ?: 'fossology') .
+             " host=" . getenv('FOSSOLOGY_DB_HOST') .
+             " user=" . (getenv('FOSSOLOGY_DB_USER') ?: 'fossy') .
+             " password=" . (getenv('FOSSOLOGY_DB_PASSWORD') ?: 'fossy');
+  }
+
   if (! empty($options)) {
     $PG_CONN = pg_connect(str_replace(";", " ", $options));
   }

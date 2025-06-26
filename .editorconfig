@@ -2,18 +2,20 @@
 
 # SPDX-License-Identifier: FSFAP
 
-# top-most EditorConfig file
-root = true
+; # top-most EditorConfig file
+; root = true
 
-[*]
-end_of_line = lf
-insert_final_newline = true
-charset = utf-8
-indent_style = space
-indent_size = 2
+; [*]
+; end_of_line = lf
+; insert_final_newline = true
+; charset = utf-8
+; indent_style = space
+; indent_size = 2
 
 [Makefile]
 indent_style = tab
 
 [rules]
 indent_style = tab
+; [Makefile]
+; indent_style = tab

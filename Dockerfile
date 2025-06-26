@@ -26,6 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
       sudo \
       cmake \
       ninja-build \
+      libcurl4-openssl-dev \
  && rm -rf /var/lib/apt/lists/*
 
 COPY ./utils/fo-installdeps ./utils/fo-installdeps

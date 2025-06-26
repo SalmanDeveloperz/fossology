@@ -16,6 +16,16 @@ spec:
       labels:
         app: web
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -z $(FOSSOLOGY_DB_HOST) 5432; do echo "Waiting for DB..."; sleep 3; done']
+          env:
+            - name: FOSSOLOGY_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fossology
+                  key: FOSSOLOGY_DB_HOST
       containers:
         - args:
             - web
@@ -44,9 +54,9 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: fossology
-                  key: FOSSOLOGY_SCHEDULER_HOST               
+                  key: FOSSOLOGY_SCHEDULER_HOST
           image: fossology/web:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           name: web
           ports:
             - containerPort: 80
@@ -59,4 +69,3 @@ spec:
         - name: repository
           persistentVolumeClaim:
             claimName: repository
-status: {}

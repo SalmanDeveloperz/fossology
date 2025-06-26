@@ -51,7 +51,7 @@ spec:
                   name: fossology
                   key: FOSSOLOGY_SCHEDULER_HOST
           image: fossology/ununpack:latest # adj2nest is installed inside ununpack
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /srv/fossology/repository/
               name: repository             

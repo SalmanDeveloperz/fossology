@@ -54,7 +54,7 @@ spec:
             - mountPath: /srv/fossology/repository/
               name: repository                     
           image: fossology/ojo:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           name: ojo
           resources: {}
       restartPolicy: Always

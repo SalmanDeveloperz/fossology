@@ -15,26 +15,36 @@ WORKDIR /fossology
 
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
-### install dependencies
+### Install dependencies
 COPY --from=builder /fossology_packages/fossology/packages/fossology-common_*_amd64.deb .
 COPY --from=builder /fossology_packages/fossology/packages/fossology-web_*_amd64.deb .
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-client \
     && dpkg -i fossology-common_*_amd64.deb fossology-web_*_amd64.deb || echo "deb failed" \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y -f
 
-# configure php
-COPY ./install/scripts/php-conf-fix.sh ./install/scripts/php-conf-fix.sh
+# Configure PHP
+COPY install/scripts/php-conf-fix.sh ./install/scripts/php-conf-fix.sh
 RUN /fossology/install/scripts/php-conf-fix.sh --overwrite
 
-# configure apache
+# Configure Apache
 RUN mkdir -p /var/log/apache2/ \
- && ln -sf /proc/self/fd/1 /var/log/apache2/access.log \
- && ln -sf /proc/self/fd/1 /var/log/apache2/error.log
+    && ln -sf /proc/self/fd/1 /var/log/apache2/access.log \
+    && ln -sf /proc/self/fd/1 /var/log/apache2/error.log
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install cron -y\
-    && service cron start 
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 cron \
+    && a2enmod rewrite \
+    && sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/usr\/share\/fossology\/www\/ui/' /etc/apache2/sites-available/000-default.conf \
+    && a2dissite 000-default.conf \
+    && a2ensite 000-default.conf
+
+# Copy FOSSology UI files (ensure this path matches your project)
+COPY ./src/www/ui/ /usr/share/fossology/www/ui/
+
+# Start services
+RUN service cron start
 
 COPY ./Docker/docker-entrypoint.k8s.sh /fossology/docker-entrypoint.sh
 RUN chmod +x /fossology/docker-entrypoint.sh

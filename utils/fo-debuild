@@ -59,9 +59,9 @@ while true; do
    esac
 done
 
-# Get the version
-VERSION=$(eval "${VERSION_COMMAND}")
-VERSION="${VERSION/-rc/~rc}-1"
+
+# Get the version from debian/changelog
+VERSION=$(dpkg-parsechangelog -S version)
 DISTRO=$(lsb_release --codename --short)
 
 # Update debian/changelog

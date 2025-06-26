@@ -54,7 +54,7 @@ spec:
             - mountPath: /srv/fossology/repository/
               name: repository                     
           image: fossology/ununpack:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           name: ununpack
           resources: {}
       restartPolicy: Always

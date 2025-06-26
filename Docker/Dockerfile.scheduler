@@ -4,40 +4,52 @@
 #
 # Description: Docker container image recipe for scheduler
 
+# Builder stage to compile and package dependencies
 FROM fossology/packages:latest as builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
+# Final runtime image
 FROM debian:buster-slim
 
 WORKDIR /fossology
 
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
+# Install required dependencies (client only, no server)
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install postgresql postgresql-contrib dnsutils -y
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-client dnsutils curl libcurl4-openssl-dev
 
+# Copy deb packages from builder stage
 COPY --from=builder /fossology_packages/fossology/packages/fossology-common_*_amd64.deb .
 COPY --from=builder /fossology_packages/fossology/packages/fossology-db_*_amd64.deb .
 COPY --from=builder /fossology_packages/fossology/packages/fossology-scheduler_*_amd64.deb .
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && pg_ctlcluster 11 main start && service postgresql start && service postgresql status\
-    && dpkg -i fossology-common_*_amd64.deb fossology-scheduler_*_amd64.deb fossology-db_*_amd64.deb || echo "deb failed" \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y -f
+# Install deb packages and force configuration skip for local DB
+RUN DEBIAN_FRONTEND=noninteractive dpkg -i --force-confmiss fossology-common_*_amd64.deb fossology-scheduler_*_amd64.deb fossology-db_*_amd64.deb || echo "deb failed" \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y -f \
+    && dpkg --configure --force-confmiss -a
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install curl -y
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-RUN chmod +x ./kubectl
-RUN mv ./kubectl /usr/local/bin
+# Install kubectl for Kubernetes interaction
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
+    && chmod +x ./kubectl \
+    && mv ./kubectl /usr/local/bin/
 
+# Copy necessary files
 COPY ./src/www/ui/core-schema.dat /usr/share/fossology/www/ui/
-
+COPY /home/dev/Omar/fossology/src/lib/php/tests/sysconfigDirTest/fossology.conf /etc/fossology/fossology.conf
 COPY ./Docker/docker-entrypoint.k8s.sh /fossology/docker-entrypoint.sh
+
+# Pre-apply config changes during build to avoid runtime sed issues
+RUN sed -i 's/address = localhost/address = db/' /etc/fossology/fossology.conf \
+    && sed -i 's/port = 5555/port = 5432/' /etc/fossology/fossology.conf \
+    && chmod 644 /etc/fossology/fossology.conf
+
+# Ensure entrypoint is executable and set
 RUN chmod +x /fossology/docker-entrypoint.sh
 ENTRYPOINT ["/fossology/docker-entrypoint.sh"]
 
-# scheduler needs acces to ./kube directory so it can access kubectl command
-RUN mkdir /root/.kube
-RUN chmod -R o=rwx /root/
+# Create kube directory for kubectl
+RUN mkdir -p /root/.kube \
+    && chmod -R o=rwx /root/

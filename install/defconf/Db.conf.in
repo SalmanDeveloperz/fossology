@@ -1,5 +1,5 @@
-dbname=@FO_PROJECT@;
-host=localhost;
-user=@FO_PROJECTUSER@;
-password=@FO_PROJECTUSER@;
+dbname={$PROJECT};
+host=postgres-service;
+user={$PROJECTUSER};
+password={$PROJECTUSER};
 client_encoding=utf8;

@@ -1,0 +1,5906 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: adj2nest-b74c479d4-
+    generation: 1
+    labels:
+      agent.type: adj2nest
+      app: agent
+      pod-template-hash: b74c479d4
+    name: adj2nest-b74c479d4-qkwxl
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: adj2nest-b74c479d4
+      uid: 870c7423-875a-4352-845b-ec886e1cff4b
+    resourceVersion: "271479"
+    uid: fecb4266-b3f5-4722-a57b-be24dedef09b
+  spec:
+    containers:
+    - args:
+      - agent
+      - adj2nest
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/ununpack:latest
+      imagePullPolicy: IfNotPresent
+      name: adj2nest
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-p6dr2
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: adj2nest
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-p6dr2
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://f725088337cc3f694e0a1a0954d732e93b3bbf77f1e8969c90428468ebd45acc
+      image: fossology/ununpack:latest
+      imageID: docker://sha256:7aa474eb56c230fe7efddd9966dedf8852ed959e343236358b7de440f948bf38
+      lastState:
+        terminated:
+          containerID: docker://0a4e096710eccd6d2ea5d7a6bde96d36ae5e73da3db4d89b07b3e98d1cd358eb
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:10Z"
+      name: adj2nest
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:31Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-p6dr2
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.79
+    podIPs:
+    - ip: 10.244.1.79
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: copyright-59c7cb45bd-
+    generation: 1
+    labels:
+      agent.type: copyright
+      app: agent
+      pod-template-hash: 59c7cb45bd
+    name: copyright-59c7cb45bd-8qtsw
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: copyright-59c7cb45bd
+      uid: 265a72a7-c3e2-4a0a-b0bd-9b1894aa3c2d
+    resourceVersion: "271462"
+    uid: 4f326716-142c-4a27-8360-a8397983ae76
+  spec:
+    containers:
+    - args:
+      - agent
+      - copyright
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/copyright:latest
+      imagePullPolicy: IfNotPresent
+      name: copyright
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-nv622
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: copyright
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-nv622
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:31Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:31Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://96d1c35cd692787feb27bf604f60d55ea3032cd87efbed37544c54f1fcabebae
+      image: fossology/copyright:latest
+      imageID: docker://sha256:6f3ad520c4177dd19dcadbd4b46513525d1ccec458297bac892035f468a98a86
+      lastState:
+        terminated:
+          containerID: docker://124c2011720616c62b7cc72bad05e0b18f0ed12266dc8f964bd58709321c3518
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:08Z"
+      name: copyright
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:30Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-nv622
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.84
+    podIPs:
+    - ip: 10.244.1.84
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-14T07:29:49Z"
+    generateName: db-
+    generation: 1
+    labels:
+      app: db
+      apps.kubernetes.io/pod-index: "0"
+      controller-revision-hash: db-65fcbbc84b
+      statefulset.kubernetes.io/pod-name: db-0
+    name: db-0
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: db
+      uid: a1b3d314-f544-48b9-996d-d7fd0e6f68dc
+    resourceVersion: "271518"
+    uid: 7cec8ba2-f0e5-45be-bbcd-228db9ab3f45
+  spec:
+    containers:
+    - env:
+      - name: POSTGRES_DB
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: POSTGRES_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: POSTGRES_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      image: postgres:13
+      imagePullPolicy: IfNotPresent
+      name: db
+      ports:
+      - containerPort: 5432
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/postgresql/data
+        name: database
+      - mountPath: /docker-entrypoint-initdb.d
+        name: init-scripts
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-hbkt8
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: db-0
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: db
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - emptyDir: {}
+      name: database
+    - configMap:
+        defaultMode: 420
+        name: postgres-init-scripts
+      name: init-scripts
+    - name: kube-api-access-hbkt8
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-14T07:29:49Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:44Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:44Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-14T07:29:49Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://6d5e1fdfc91fbaaa937b0cc5a9453af5eb0d480d716f4ab03ee71882b86afaac
+      image: postgres:13
+      imageID: docker-pullable://postgres@sha256:e1195666dc3edf6c8447bea6df9d7bccfdda66ab927d1f68b1b6e0cc2262c232
+      lastState:
+        terminated:
+          containerID: docker://0eaf193efa764bf86a9f8708adbb7f51f6bfab3f0bc552599da5dd433aded352
+          exitCode: 0
+          finishedAt: "2025-06-19T16:12:56Z"
+          reason: Completed
+          startedAt: "2025-06-19T11:14:08Z"
+      name: db
+      ready: true
+      resources: {}
+      restartCount: 17
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:43Z"
+      volumeMounts:
+      - mountPath: /var/lib/postgresql/data
+        name: database
+      - mountPath: /docker-entrypoint-initdb.d
+        name: init-scripts
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-hbkt8
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.85
+    podIPs:
+    - ip: 10.244.1.85
+    qosClass: BestEffort
+    startTime: "2025-06-14T07:29:49Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-09T08:54:34Z"
+    generateName: etcd-7dc898b47c-
+    generation: 1
+    labels:
+      app: etcd
+      etcd_node: etcd
+      pod-template-hash: 7dc898b47c
+    name: etcd-7dc898b47c-pr9rk
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: etcd-7dc898b47c
+      uid: d37637e2-b077-4056-bc54-20eab7b9e429
+    resourceVersion: "271274"
+    uid: a8623c33-67ea-468f-8820-8f359a49178e
+  spec:
+    containers:
+    - command:
+      - /usr/local/bin/etcd
+      - --name
+      - etcd
+      - --initial-advertise-peer-urls
+      - http://etcd:2380
+      - --listen-peer-urls
+      - http://0.0.0.0:2380
+      - --listen-client-urls
+      - http://0.0.0.0:2379
+      - --advertise-client-urls
+      - http://etcd:2379
+      - --initial-cluster
+      - etcd=http://etcd:2380
+      - --initial-cluster-state
+      - new
+      - --data-dir
+      - /var/lib/etcd
+      image: registry.k8s.io/etcd:3.5.21-0
+      imagePullPolicy: Always
+      name: etcd
+      ports:
+      - containerPort: 2379
+        name: client
+        protocol: TCP
+      - containerPort: 2380
+        name: server
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/etcd
+        name: etcd
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-g55vs
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: etcd
+      persistentVolumeClaim:
+        claimName: etcd
+    - name: kube-api-access-g55vs
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:20Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-09T08:54:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:20Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:20Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-09T08:54:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://3f031f9cc4e65e7d2096db0e14f3437802b2a4ccf47a10a00b0c814fbcbfaa76
+      image: registry.k8s.io/etcd:3.5.21-0
+      imageID: docker-pullable://registry.k8s.io/etcd@sha256:d58c035df557080a27387d687092e3fc2b64c6d0e3162dc51453a115f847d121
+      lastState:
+        terminated:
+          containerID: docker://a8d972f1b7e464d8ab594aeee60bac21bbf1e91600b12572390fa6894fe64597
+          exitCode: 0
+          finishedAt: "2025-06-19T16:12:56Z"
+          reason: Completed
+          startedAt: "2025-06-19T11:14:13Z"
+      name: etcd
+      ready: true
+      resources: {}
+      restartCount: 20
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:19Z"
+      volumeMounts:
+      - mountPath: /var/lib/etcd
+        name: etcd
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-g55vs
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.83
+    podIPs:
+    - ip: 10.244.1.83
+    qosClass: BestEffort
+    startTime: "2025-06-09T08:54:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: nomos-7657d5d985-
+    generation: 1
+    labels:
+      agent.type: nomos
+      app: agent
+      pod-template-hash: 7657d5d985
+    name: nomos-7657d5d985-5rtgl
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: nomos-7657d5d985
+      uid: c1d9530f-332d-46c5-b41b-8289649e7168
+    resourceVersion: "271491"
+    uid: 99baa360-cc9b-47e4-bb77-5714857b437f
+  spec:
+    containers:
+    - args:
+      - agent
+      - nomos
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/nomos:latest
+      imagePullPolicy: IfNotPresent
+      name: nomos
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-qf5j9
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: nomos
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-qf5j9
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://f3ebb1c629f8eb2bd757f9bcf792eae982e173d687b99ed59ec67fda37295bc7
+      image: fossology/nomos:latest
+      imageID: docker://sha256:d9f50116f414c91d4276e6ef7e7a413a449b4c00a9258d4535edc72f711fbb97
+      lastState:
+        terminated:
+          containerID: docker://d4f07d178418cdbb3d671bf45296dc7937cf9ca678d5bf8540cf7488a0be4c92
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:10Z"
+      name: nomos
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:31Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-qf5j9
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.87
+    podIPs:
+    - ip: 10.244.1.87
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: ojo-cf58bd5cf-
+    generation: 1
+    labels:
+      agent.type: ojo
+      app: agent
+      pod-template-hash: cf58bd5cf
+    name: ojo-cf58bd5cf-mfd8w
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: ojo-cf58bd5cf
+      uid: 2c9a2cb4-a4a7-48ca-9fe3-3f9c4612e254
+    resourceVersion: "271451"
+    uid: c8a5b083-5dd0-4f5c-a090-aec74931c729
+  spec:
+    containers:
+    - args:
+      - agent
+      - ojo
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/ojo:latest
+      imagePullPolicy: IfNotPresent
+      name: ojo
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-j2kzq
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: ojo
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-j2kzq
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:17Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:30Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:30Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://bfc6c6e4fd67ccfe5cdb6140cd294384810c7c2249bd1030a74bedc7c8c2f737
+      image: fossology/ojo:latest
+      imageID: docker://sha256:6a22748f192feff0ee455485921db2ac9d59466cd1ef1a4a81a36cdec34715bd
+      lastState:
+        terminated:
+          containerID: docker://ab74faa4cc6c550a4199429dd12e051bbd086f9c86f2b98b93da3fa25ae1e55d
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:10Z"
+      name: ojo
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:29Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-j2kzq
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.80
+    podIPs:
+    - ip: 10.244.1.80
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+    creationTimestamp: "2025-06-18T14:57:20Z"
+    generateName: scheduler-fc699d898-
+    generation: 1
+    labels:
+      app: scheduler
+      pod-template-hash: fc699d898
+    name: scheduler-fc699d898-z6sdp
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: scheduler-fc699d898
+      uid: a2031756-167a-4947-8695-8811e68061aa
+    resourceVersion: "275744"
+    uid: a10bc054-6929-4c8e-84cb-cfb2408efce9
+  spec:
+    containers:
+    - args:
+      - scheduler
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        value: db
+      - name: FOSSOLOGY_DB_NAME
+        value: fossology
+      - name: FOSSOLOGY_DB_USER
+        value: fossy
+      - name: FOSSOLOGY_DB_PASSWORD
+        value: fossy
+      image: fossology/scheduler:latest
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        exec:
+          command:
+          - "true"
+        failureThreshold: 5
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      name: scheduler
+      ports:
+      - containerPort: 24693
+        protocol: TCP
+      readinessProbe:
+        exec:
+          command:
+          - "true"
+        failureThreshold: 3
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-5tmzj
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: internal-kubectl
+    serviceAccountName: internal-kubectl
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-5tmzj
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:17Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-18T14:57:20Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T17:35:49Z"
+      message: 'containers with unready status: [scheduler]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T17:35:49Z"
+      message: 'containers with unready status: [scheduler]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-18T14:57:20Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://70bd6e5e80bce2a4f0bb19d6677f7ffbe84920cb5395e51bb91dc2f0b3e516e6
+      image: fossology/scheduler:latest
+      imageID: docker://sha256:ac2cc766ffc9737cec561b290ca0c7f9dcbd458857d7d80ddbbae4e0f0ed5baa
+      lastState:
+        terminated:
+          containerID: docker://70bd6e5e80bce2a4f0bb19d6677f7ffbe84920cb5395e51bb91dc2f0b3e516e6
+          exitCode: 139
+          finishedAt: "2025-06-19T17:35:48Z"
+          reason: Error
+          startedAt: "2025-06-19T17:35:25Z"
+      name: scheduler
+      ready: false
+      resources: {}
+      restartCount: 154
+      started: false
+      state:
+        waiting:
+          message: back-off 5m0s restarting failed container=scheduler pod=scheduler-fc699d898-z6sdp_default(a10bc054-6929-4c8e-84cb-cfb2408efce9)
+          reason: CrashLoopBackOff
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-5tmzj
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.77
+    podIPs:
+    - ip: 10.244.1.77
+    qosClass: BestEffort
+    startTime: "2025-06-18T14:57:20Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-16T14:23:53Z"
+    generation: 1
+    labels:
+      run: test-shell
+    name: test-shell
+    namespace: default
+    resourceVersion: "275559"
+    uid: 660d8963-c6e3-4cfd-9ef4-c04a50ba5ff3
+  spec:
+    containers:
+    - args:
+      - bash
+      image: fossology/scheduler:latest
+      imagePullPolicy: Always
+      name: test-shell
+      resources: {}
+      stdin: true
+      stdinOnce: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      tty: true
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-ng9zv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-ng9zv
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:17Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-16T14:23:53Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-16T14:23:53Z"
+      message: 'containers with unready status: [test-shell]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-16T14:23:53Z"
+      message: 'containers with unready status: [test-shell]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-16T14:23:53Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - image: fossology/scheduler:latest
+      imageID: ""
+      lastState: {}
+      name: test-shell
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          message: 'Back-off pulling image "fossology/scheduler:latest": ErrImagePull:
+            Error response from daemon: pull access denied for fossology/scheduler,
+            repository does not exist or may require ''docker login'': denied: requested
+            access to the resource is denied'
+          reason: ImagePullBackOff
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-ng9zv
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Pending
+    podIP: 10.244.1.76
+    podIPs:
+    - ip: 10.244.1.76
+    qosClass: BestEffort
+    startTime: "2025-06-16T14:23:53Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: ununpack-f986bd864-
+    generation: 1
+    labels:
+      agent.type: ununpack
+      app: agent
+      pod-template-hash: f986bd864
+    name: ununpack-f986bd864-6qhrt
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: ununpack-f986bd864
+      uid: 7383c161-6543-4a3f-b280-08990fa2ff7b
+    resourceVersion: "271503"
+    uid: a5a39f00-b0f6-4a4d-82e4-30736b153ccd
+  spec:
+    containers:
+    - args:
+      - agent
+      - ununpack
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/ununpack:latest
+      imagePullPolicy: IfNotPresent
+      name: ununpack
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-2bx2z
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: ununpack
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-2bx2z
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:33Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:33Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://defb0fee3630a6006c00d02f058ed7b197da5e6b7eb0ad080264ce882b4e99cb
+      image: fossology/ununpack:latest
+      imageID: docker://sha256:7aa474eb56c230fe7efddd9966dedf8852ed959e343236358b7de440f948bf38
+      lastState:
+        terminated:
+          containerID: docker://13a3714162710159c6a6059abbc49053543cc8398162d5b0ec640a91cd4c4d3c
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:10Z"
+      name: ununpack
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:32Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-2bx2z
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.82
+    podIPs:
+    - ip: 10.244.1.82
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/restartedAt: "2025-06-16T16:33:52+05:00"
+    creationTimestamp: "2025-06-19T11:05:54Z"
+    generateName: web-7fcdfc869f-
+    generation: 1
+    labels:
+      app: web
+      pod-template-hash: 7fcdfc869f
+    name: web-7fcdfc869f-8x9gq
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: web-7fcdfc869f
+      uid: 3b49aea6-70a4-476a-8756-a92a3652ea1b
+    resourceVersion: "271528"
+    uid: aa3752ee-e2f3-44b0-9337-34754d054c48
+  spec:
+    containers:
+    - args:
+      - web
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/web:latest
+      imagePullPolicy: IfNotPresent
+      name: web
+      ports:
+      - containerPort: 80
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9458t
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - command:
+      - sh
+      - -c
+      - until nc -z $(FOSSOLOGY_DB_HOST) 5432; do echo "Waiting for DB..."; sleep
+        3; done
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      image: busybox
+      imagePullPolicy: Always
+      name: wait-for-db
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9458t
+        readOnly: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-9458t
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:24Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T11:06:01Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:48Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:48Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T11:05:54Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://a96bc85c5973756e7cf7dad57f6a6e183f08c5475bb2dc6405f7578e45e74df0
+      image: fossology/web:latest
+      imageID: docker://sha256:55a6c189b3f0e72997de32a02a364f92db890eae410cc19bf295392dc47915a0
+      lastState:
+        terminated:
+          containerID: docker://990b2a64e8f89956e1ba9c213c361dc42c55b39c9ee08dcf54a77131d6dded0b
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:27Z"
+      name: web
+      ready: true
+      resources: {}
+      restartCount: 4
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:47Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9458t
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    initContainerStatuses:
+    - containerID: docker://f6e1c5553028de99570adc715e4efc9764cabee9a0d14d59e22c1f27e4597728
+      image: busybox:latest
+      imageID: docker-pullable://busybox@sha256:f85340bf132ae937d2c2a763b8335c9bab35d6e8293f70f606b9c6178d84f42b
+      lastState: {}
+      name: wait-for-db
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: docker://f6e1c5553028de99570adc715e4efc9764cabee9a0d14d59e22c1f27e4597728
+          exitCode: 0
+          finishedAt: "2025-06-19T16:13:47Z"
+          reason: Completed
+          startedAt: "2025-06-19T16:13:27Z"
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9458t
+        readOnly: true
+        recursiveReadOnly: Disabled
+    phase: Running
+    podIP: 10.244.1.86
+    podIPs:
+    - ip: 10.244.1.86
+    qosClass: BestEffort
+    startTime: "2025-06-19T11:05:54Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generateName: wgetagent-5c88bb9575-
+    generation: 1
+    labels:
+      agent.type: wget_agent
+      app: agent
+      pod-template-hash: 5c88bb9575
+    name: wgetagent-5c88bb9575-9qvlz
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: wgetagent-5c88bb9575
+      uid: 9f1553bd-0611-46c8-9127-e37c35464d0b
+    resourceVersion: "271486"
+    uid: 0a3a6a29-0b86-46ed-932b-64a1d065cc4f
+  spec:
+    containers:
+    - args:
+      - agent
+      - wget_agent
+      env:
+      - name: FOSSOLOGY_DB_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_DB_HOST
+            name: fossology
+      - name: FOSSOLOGY_DB_NAME
+        valueFrom:
+          configMapKeyRef:
+            key: POSTGRES_DB
+            name: db
+      - name: FOSSOLOGY_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_PASSWORD
+            name: db-secret
+      - name: FOSSOLOGY_DB_USER
+        valueFrom:
+          secretKeyRef:
+            key: POSTGRES_USER
+            name: db-secret
+      - name: FOSSOLOGY_SCHEDULER_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: FOSSOLOGY_SCHEDULER_HOST
+            name: fossology
+      image: fossology/wgetagent:latest
+      imagePullPolicy: IfNotPresent
+      name: wgetagent
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-xp7k2
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: wgetagent
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: agent-svc
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: kube-api-access-xp7k2
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-19T16:13:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-06-08T05:17:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://a1514df82b2541f202c282d9cad90fa90aaf9f7e5f0b185d06f528031f861d2d
+      image: fossology/wgetagent:latest
+      imageID: docker://sha256:a95c791602c5287c1c12d12036c627f8e7d622241b6b9121cced99af1abe2970
+      lastState:
+        terminated:
+          containerID: docker://8c9c8045617dfb33821a78989f2b1340f305e6d999464b7a1ac64a68f5a73281
+          exitCode: 137
+          finishedAt: "2025-06-19T16:13:06Z"
+          reason: Error
+          startedAt: "2025-06-19T11:14:10Z"
+      name: wgetagent
+      ready: true
+      resources: {}
+      restartCount: 63
+      started: true
+      state:
+        running:
+          startedAt: "2025-06-19T16:13:31Z"
+      volumeMounts:
+      - mountPath: /srv/fossology/repository/
+        name: repository
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-xp7k2
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.49.2
+    hostIPs:
+    - ip: 192.168.49.2
+    phase: Running
+    podIP: 10.244.1.81
+    podIPs:
+    - ip: 10.244.1.81
+    qosClass: BestEffort
+    startTime: "2025-06-08T05:17:34Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"agent-svc","namespace":"default"},"spec":{"clusterIP":"None","selector":{"app":"agent"}}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    name: agent-svc
+    namespace: default
+    resourceVersion: "16231"
+    uid: 0f0b8b8b-201f-420b-a112-4553e2efc324
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    selector:
+      app: agent
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"db"},"name":"db","namespace":"default"},"spec":{"ports":[{"name":"database","nodePort":30543,"port":5432}],"selector":{"app":"db"},"type":"NodePort"}}
+    creationTimestamp: "2025-06-08T05:17:33Z"
+    labels:
+      app: db
+    name: db
+    namespace: default
+    resourceVersion: "16158"
+    uid: a974b2dc-139e-4cd4-9956-ac56a76336a8
+  spec:
+    clusterIP: 10.109.91.162
+    clusterIPs:
+    - 10.109.91.162
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: database
+      nodePort: 30543
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      app: db
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"etcd_node":"etcd"},"name":"etcd","namespace":"default"},"spec":{"ports":[{"name":"client","nodePort":30079,"port":2379,"protocol":"TCP","targetPort":2379},{"name":"server","nodePort":30080,"port":2380,"protocol":"TCP","targetPort":2380}],"selector":{"etcd_node":"etcd"},"type":"NodePort"}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    labels:
+      etcd_node: etcd
+    name: etcd
+    namespace: default
+    resourceVersion: "16177"
+    uid: ab38409d-fd02-4151-ba62-76b2f22194c2
+  spec:
+    clusterIP: 10.99.232.25
+    clusterIPs:
+    - 10.99.232.25
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: client
+      nodePort: 30079
+      port: 2379
+      protocol: TCP
+      targetPort: 2379
+    - name: server
+      nodePort: 30080
+      port: 2380
+      protocol: TCP
+      targetPort: 2380
+    selector:
+      etcd_node: etcd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2025-06-05T13:40:20Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "204"
+    uid: 52e14099-b4a3-47c1-b525-f475448fccaf
+  spec:
+    clusterIP: 10.96.0.1
+    clusterIPs:
+    - 10.96.0.1
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"scheduler"},"name":"scheduler","namespace":"default"},"spec":{"ports":[{"name":"scheduler","port":24693}],"selector":{"app":"scheduler"},"type":"ClusterIP"}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    labels:
+      app: scheduler
+    name: scheduler
+    namespace: default
+    resourceVersion: "16200"
+    uid: a10d481a-7468-4f04-873b-65d08e3394ff
+  spec:
+    clusterIP: 10.96.168.73
+    clusterIPs:
+    - 10.96.168.73
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: scheduler
+      port: 24693
+      protocol: TCP
+      targetPort: 24693
+    selector:
+      app: scheduler
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"web"},"name":"web","namespace":"default"},"spec":{"ports":[{"name":"8081","port":8081,"targetPort":80}],"selector":{"app":"web"},"type":"LoadBalancer"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    labels:
+      app: web
+    name: web
+    namespace: default
+    resourceVersion: "16311"
+    uid: 58965f23-934e-4150-ad43-1bdd74db7fe5
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.104.191.129
+    clusterIPs:
+    - 10.104.191.129
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: "8081"
+      nodePort: 30745
+      port: 8081
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: web
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"adj2nest","app":"agent"},"name":"adj2nest","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"adj2nest","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"adj2nest","app":"agent"}},"spec":{"containers":[{"args":["agent","adj2nest"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/ununpack:latest","imagePullPolicy":"Never","name":"adj2nest","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"adj2nest","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: adj2nest
+      app: agent
+    name: adj2nest
+    namespace: default
+    resourceVersion: "271485"
+    uid: bc3bf047-74d6-483d-ba1b-012df2413878
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: adj2nest
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: adj2nest
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - adj2nest
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ununpack:latest
+          imagePullPolicy: IfNotPresent
+          name: adj2nest
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: adj2nest
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:31:34Z"
+      lastUpdateTime: "2025-06-09T08:31:34Z"
+      message: ReplicaSet "adj2nest-b74c479d4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:32Z"
+      lastUpdateTime: "2025-06-19T16:13:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"copyright","app":"agent"},"name":"copyright","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"copyright","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"copyright","app":"agent"}},"spec":{"containers":[{"args":["agent","copyright"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/copyright:latest","imagePullPolicy":"Never","name":"copyright","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"copyright","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: copyright
+      app: agent
+    name: copyright
+    namespace: default
+    resourceVersion: "271466"
+    uid: a76f55b7-3f7d-45eb-8029-895598b00845
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: copyright
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: copyright
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - copyright
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/copyright:latest
+          imagePullPolicy: IfNotPresent
+          name: copyright
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: copyright
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-08T08:11:48Z"
+      lastUpdateTime: "2025-06-08T08:11:48Z"
+      message: ReplicaSet "copyright-59c7cb45bd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:31Z"
+      lastUpdateTime: "2025-06-19T16:13:31Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"etcd","etcd_node":"etcd"},"name":"etcd","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"etcd","etcd_node":"etcd"}},"template":{"metadata":{"labels":{"app":"etcd","etcd_node":"etcd"}},"spec":{"containers":[{"command":["/usr/local/bin/etcd","--name","etcd","--initial-advertise-peer-urls","http://etcd:2380","--listen-peer-urls","http://0.0.0.0:2380","--listen-client-urls","http://0.0.0.0:2379","--advertise-client-urls","http://etcd:2379","--initial-cluster","etcd=http://etcd:2380","--initial-cluster-state","new","--data-dir","/var/lib/etcd"],"image":"registry.k8s.io/etcd:3.5.21-0","name":"etcd","ports":[{"containerPort":2379,"name":"client","protocol":"TCP"},{"containerPort":2380,"name":"server","protocol":"TCP"}],"resources":{},"volumeMounts":[{"mountPath":"/var/lib/etcd","name":"etcd"}]}],"restartPolicy":"Always","volumes":[{"name":"etcd","persistentVolumeClaim":{"claimName":"etcd"}}]}}},"status":{"replicas":1}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 2
+    labels:
+      app: etcd
+      etcd_node: etcd
+    name: etcd
+    namespace: default
+    resourceVersion: "256163"
+    uid: 26fc204a-9417-412e-9a19-d8f7ec628fa5
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: etcd
+        etcd_node: etcd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: etcd
+          etcd_node: etcd
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/etcd
+          - --name
+          - etcd
+          - --initial-advertise-peer-urls
+          - http://etcd:2380
+          - --listen-peer-urls
+          - http://0.0.0.0:2380
+          - --listen-client-urls
+          - http://0.0.0.0:2379
+          - --advertise-client-urls
+          - http://etcd:2379
+          - --initial-cluster
+          - etcd=http://etcd:2380
+          - --initial-cluster-state
+          - new
+          - --data-dir
+          - /var/lib/etcd
+          image: registry.k8s.io/etcd:3.5.21-0
+          imagePullPolicy: Always
+          name: etcd
+          ports:
+          - containerPort: 2379
+            name: client
+            protocol: TCP
+          - containerPort: 2380
+            name: server
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/etcd
+            name: etcd
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: etcd
+          persistentVolumeClaim:
+            claimName: etcd
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:54:34Z"
+      lastUpdateTime: "2025-06-09T08:54:43Z"
+      message: ReplicaSet "etcd-7dc898b47c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T11:14:14Z"
+      lastUpdateTime: "2025-06-19T11:14:14Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"nomos","app":"agent"},"name":"nomos","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"nomos","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"nomos","app":"agent"}},"spec":{"containers":[{"args":["agent","nomos"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/nomos:latest","imagePullPolicy":"Never","name":"nomos","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"nomos","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: nomos
+      app: agent
+    name: nomos
+    namespace: default
+    resourceVersion: "271496"
+    uid: e57dd6f8-cbd1-4707-a3b3-738733589e27
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: nomos
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: nomos
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - nomos
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/nomos:latest
+          imagePullPolicy: IfNotPresent
+          name: nomos
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: nomos
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:31:30Z"
+      lastUpdateTime: "2025-06-09T08:31:30Z"
+      message: ReplicaSet "nomos-7657d5d985" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:32Z"
+      lastUpdateTime: "2025-06-19T16:13:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"ojo","app":"agent"},"name":"ojo","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"ojo","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"ojo","app":"agent"}},"spec":{"containers":[{"args":["agent","ojo"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/ojo:latest","imagePullPolicy":"Never","name":"ojo","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"ojo","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: ojo
+      app: agent
+    name: ojo
+    namespace: default
+    resourceVersion: "271455"
+    uid: a7c5bc4d-7e99-4aa5-86c8-e72119d537e7
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: ojo
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: ojo
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - ojo
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ojo:latest
+          imagePullPolicy: IfNotPresent
+          name: ojo
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: ojo
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:31:17Z"
+      lastUpdateTime: "2025-06-09T08:31:17Z"
+      message: ReplicaSet "ojo-cf58bd5cf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:30Z"
+      lastUpdateTime: "2025-06-19T16:13:30Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "17"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"scheduler","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"scheduler"}},"template":{"metadata":{"labels":{"app":"scheduler"}},"spec":{"containers":[{"args":["scheduler"],"env":[{"name":"FOSSOLOGY_DB_HOST","value":"db"},{"name":"FOSSOLOGY_DB_NAME","value":"fossology"},{"name":"FOSSOLOGY_DB_USER","value":"fossy"},{"name":"FOSSOLOGY_DB_PASSWORD","value":"fossy"}],"image":"fossology/scheduler:latest","imagePullPolicy":"IfNotPresent","livenessProbe":{"exec":{"command":["true"]},"failureThreshold":5,"initialDelaySeconds":30,"periodSeconds":10,"timeoutSeconds":5},"name":"scheduler","ports":[{"containerPort":24693}],"readinessProbe":{"exec":{"command":["true"]},"initialDelaySeconds":10,"periodSeconds":5},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}}}
+    creationTimestamp: "2025-06-16T17:00:01Z"
+    generation: 18
+    name: scheduler
+    namespace: default
+    resourceVersion: "275741"
+    uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: scheduler
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    conditions:
+    - lastTransitionTime: "2025-06-18T14:57:20Z"
+      lastUpdateTime: "2025-06-18T14:57:33Z"
+      message: ReplicaSet "scheduler-fc699d898" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T17:35:49Z"
+      lastUpdateTime: "2025-06-19T17:35:49Z"
+      message: Deployment does not have minimum availability.
+      reason: MinimumReplicasUnavailable
+      status: "False"
+      type: Available
+    observedGeneration: 18
+    replicas: 1
+    unavailableReplicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"ununpack","app":"agent"},"name":"ununpack","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"ununpack","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"ununpack","app":"agent"}},"spec":{"containers":[{"args":["agent","ununpack"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/ununpack:latest","imagePullPolicy":"Never","name":"ununpack","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"ununpack","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: ununpack
+      app: agent
+    name: ununpack
+    namespace: default
+    resourceVersion: "271507"
+    uid: 951de4d2-9ee6-4c2f-92a9-c714c4c14f32
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: ununpack
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: ununpack
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - ununpack
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ununpack:latest
+          imagePullPolicy: IfNotPresent
+          name: ununpack
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: ununpack
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:31:11Z"
+      lastUpdateTime: "2025-06-09T08:31:11Z"
+      message: ReplicaSet "ununpack-f986bd864" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:33Z"
+      lastUpdateTime: "2025-06-19T16:13:33Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "27"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"web"},"name":"web","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"web"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"web"}},"spec":{"containers":[{"args":["web"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/web:latest","imagePullPolicy":"Never","name":"web","ports":[{"containerPort":80}],"resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"initContainers":[{"command":["sh","-c","until nc -z $(FOSSOLOGY_DB_HOST) 5432; do echo \"Waiting for DB...\"; sleep 3; done"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}}],"image":"busybox","name":"wait-for-db"}],"restartPolicy":"Always","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 27
+    labels:
+      app: web
+    name: web
+    namespace: default
+    resourceVersion: "271532"
+    uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: web
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T16:33:52+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z $(FOSSOLOGY_DB_HOST) 5432; do echo "Waiting for DB..."; sleep
+            3; done
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          image: busybox
+          imagePullPolicy: Always
+          name: wait-for-db
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T10:20:32Z"
+      lastUpdateTime: "2025-06-18T15:40:42Z"
+      message: ReplicaSet "web-7fcdfc869f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:48Z"
+      lastUpdateTime: "2025-06-19T16:13:48Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 27
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"agent.type":"wget_agent","app":"agent"},"name":"wgetagent","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"agent.type":"wget_agent","app":"agent"}},"strategy":{},"template":{"metadata":{"labels":{"agent.type":"wget_agent","app":"agent"}},"spec":{"containers":[{"args":["agent","wget_agent"],"env":[{"name":"FOSSOLOGY_DB_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_DB_HOST","name":"fossology"}}},{"name":"FOSSOLOGY_DB_NAME","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"FOSSOLOGY_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"FOSSOLOGY_DB_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}},{"name":"FOSSOLOGY_SCHEDULER_HOST","valueFrom":{"configMapKeyRef":{"key":"FOSSOLOGY_SCHEDULER_HOST","name":"fossology"}}}],"image":"fossology/wgetagent:latest","imagePullPolicy":"Never","name":"wgetagent","resources":{},"volumeMounts":[{"mountPath":"/srv/fossology/repository/","name":"repository"}]}],"hostname":"wgetagent","restartPolicy":"Always","subdomain":"agent-svc","volumes":[{"name":"repository","persistentVolumeClaim":{"claimName":"repository"}}]}}},"status":{}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: wget_agent
+      app: agent
+    name: wgetagent
+    namespace: default
+    resourceVersion: "271490"
+    uid: 011bc3c2-d4c0-4f80-a49b-6f3f68b821ae
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        agent.type: wget_agent
+        app: agent
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: wget_agent
+          app: agent
+      spec:
+        containers:
+        - args:
+          - agent
+          - wget_agent
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/wgetagent:latest
+          imagePullPolicy: IfNotPresent
+          name: wgetagent
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: wgetagent
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-06-09T08:31:25Z"
+      lastUpdateTime: "2025-06-09T08:31:25Z"
+      message: ReplicaSet "wgetagent-5c88bb9575" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-06-19T16:13:32Z"
+      lastUpdateTime: "2025-06-19T16:13:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: adj2nest
+      app: agent
+      pod-template-hash: b74c479d4
+    name: adj2nest-b74c479d4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: adj2nest
+      uid: bc3bf047-74d6-483d-ba1b-012df2413878
+    resourceVersion: "271482"
+    uid: 870c7423-875a-4352-845b-ec886e1cff4b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: adj2nest
+        app: agent
+        pod-template-hash: b74c479d4
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: adj2nest
+          app: agent
+          pod-template-hash: b74c479d4
+      spec:
+        containers:
+        - args:
+          - agent
+          - adj2nest
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ununpack:latest
+          imagePullPolicy: IfNotPresent
+          name: adj2nest
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: adj2nest
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: copyright
+      app: agent
+      pod-template-hash: 59c7cb45bd
+    name: copyright-59c7cb45bd
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: copyright
+      uid: a76f55b7-3f7d-45eb-8029-895598b00845
+    resourceVersion: "271465"
+    uid: 265a72a7-c3e2-4a0a-b0bd-9b1894aa3c2d
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: copyright
+        app: agent
+        pod-template-hash: 59c7cb45bd
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: copyright
+          app: agent
+          pod-template-hash: 59c7cb45bd
+      spec:
+        containers:
+        - args:
+          - agent
+          - copyright
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/copyright:latest
+          imagePullPolicy: IfNotPresent
+          name: copyright
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: copyright
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 2
+    labels:
+      app: etcd
+      etcd_node: etcd
+      pod-template-hash: 56b7574d9
+    name: etcd-56b7574d9
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: etcd
+      uid: 26fc204a-9417-412e-9a19-d8f7ec628fa5
+    resourceVersion: "30747"
+    uid: 64dbc264-9bdd-4faa-815f-e7bc44a76b40
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: etcd
+        etcd_node: etcd
+        pod-template-hash: 56b7574d9
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: etcd
+          etcd_node: etcd
+          pod-template-hash: 56b7574d9
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/etcd
+          - --name
+          - etcd
+          - --initial-advertise-peer-urls
+          - http://etcd:2380
+          - --listen-peer-urls
+          - http://0.0.0.0:2380
+          - --listen-client-urls
+          - http://0.0.0.0:2379
+          - --advertise-client-urls
+          - http://etcd:2379
+          - --initial-cluster
+          - etcd=http://etcd:2380
+          - --initial-cluster-state
+          - new
+          - --data-dir
+          - /var/lib/etcd
+          image: quay.io/coreos/etcd:latest
+          imagePullPolicy: Always
+          name: etcd
+          ports:
+          - containerPort: 2379
+            name: client
+            protocol: TCP
+          - containerPort: 2380
+            name: server
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/etcd
+            name: etcd
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: etcd
+          persistentVolumeClaim:
+            claimName: etcd
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2025-06-09T08:54:34Z"
+    generation: 1
+    labels:
+      app: etcd
+      etcd_node: etcd
+      pod-template-hash: 7dc898b47c
+    name: etcd-7dc898b47c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: etcd
+      uid: 26fc204a-9417-412e-9a19-d8f7ec628fa5
+    resourceVersion: "256162"
+    uid: d37637e2-b077-4056-bc54-20eab7b9e429
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: etcd
+        etcd_node: etcd
+        pod-template-hash: 7dc898b47c
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: etcd
+          etcd_node: etcd
+          pod-template-hash: 7dc898b47c
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/etcd
+          - --name
+          - etcd
+          - --initial-advertise-peer-urls
+          - http://etcd:2380
+          - --listen-peer-urls
+          - http://0.0.0.0:2380
+          - --listen-client-urls
+          - http://0.0.0.0:2379
+          - --advertise-client-urls
+          - http://etcd:2379
+          - --initial-cluster
+          - etcd=http://etcd:2380
+          - --initial-cluster-state
+          - new
+          - --data-dir
+          - /var/lib/etcd
+          image: registry.k8s.io/etcd:3.5.21-0
+          imagePullPolicy: Always
+          name: etcd
+          ports:
+          - containerPort: 2379
+            name: client
+            protocol: TCP
+          - containerPort: 2380
+            name: server
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/etcd
+            name: etcd
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: etcd
+          persistentVolumeClaim:
+            claimName: etcd
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: nomos
+      app: agent
+      pod-template-hash: 7657d5d985
+    name: nomos-7657d5d985
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: nomos
+      uid: e57dd6f8-cbd1-4707-a3b3-738733589e27
+    resourceVersion: "271494"
+    uid: c1d9530f-332d-46c5-b41b-8289649e7168
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: nomos
+        app: agent
+        pod-template-hash: 7657d5d985
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: nomos
+          app: agent
+          pod-template-hash: 7657d5d985
+      spec:
+        containers:
+        - args:
+          - agent
+          - nomos
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/nomos:latest
+          imagePullPolicy: IfNotPresent
+          name: nomos
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: nomos
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: ojo
+      app: agent
+      pod-template-hash: cf58bd5cf
+    name: ojo-cf58bd5cf
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: ojo
+      uid: a7c5bc4d-7e99-4aa5-86c8-e72119d537e7
+    resourceVersion: "271454"
+    uid: 2c9a2cb4-a4a7-48ca-9fe3-3f9c4612e254
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: ojo
+        app: agent
+        pod-template-hash: cf58bd5cf
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: ojo
+          app: agent
+          pod-template-hash: cf58bd5cf
+      spec:
+        containers:
+        - args:
+          - agent
+          - ojo
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ojo:latest
+          imagePullPolicy: IfNotPresent
+          name: ojo
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: ojo
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "10"
+    creationTimestamp: "2025-06-17T10:06:58Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 55b5bc7b99
+    name: scheduler-55b5bc7b99
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "196217"
+    uid: 24ce6237-0a20-423e-a64c-fac45e540d0e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 55b5bc7b99
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:42:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 55b5bc7b99
+      spec:
+        containers:
+        - args:
+          - scheduler
+          - $(FOSSOLOGY_DB_HOST)
+          - $(FOSSOLOGY_DB_NAME)
+          - $(FOSSOLOGY_DB_USER)
+          - $(FOSSOLOGY_DB_PASSWORD)
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: fossology/scheduler:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "12"
+    creationTimestamp: "2025-06-17T20:21:52Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 567445c7b8
+    name: scheduler-567445c7b8
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "224837"
+    uid: 259ca544-df9c-4d67-8f0c-46106430d942
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 567445c7b8
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 567445c7b8
+      spec:
+        containers:
+        - args:
+          - scheduler ${FOSSOLOGY_DB_HOST} ${FOSSOLOGY_DB_NAME} ${FOSSOLOGY_DB_USER}
+            ${FOSSOLOGY_DB_PASSWORD}
+          command:
+          - /bin/bash
+          - -c
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:3.11.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "14"
+    creationTimestamp: "2025-06-18T11:18:28Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 676fdb7864
+    name: scheduler-676fdb7864
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "228309"
+    uid: 2b7f51c4-59cf-40e6-a3ce-019825ab56df
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 676fdb7864
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 676fdb7864
+      spec:
+        containers:
+        - env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:3.11.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository-pvc
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2025-06-16T17:37:51Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 68867895fc
+    name: scheduler-68867895fc
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "178252"
+    uid: eb9bb2bd-a723-4628-8b4f-6642bcd0cdbc
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 68867895fc
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:35:40+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 68867895fc
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: fossology/scheduler.latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "7"
+    creationTimestamp: "2025-06-16T17:36:06Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 7bffcc68b4
+    name: scheduler-7bffcc68b4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "177930"
+    uid: 8e0c483f-c663-4585-80c3-53405b34bf72
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 7bffcc68b4
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:35:40+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 7bffcc68b4
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: docker.io/fossology/scheduler:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2025-06-16T17:42:51Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 7c9f6f57fd
+    name: scheduler-7c9f6f57fd
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "192184"
+    uid: 1151854a-a996-43e1-ae07-534cc86dac15
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 7c9f6f57fd
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:42:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 7c9f6f57fd
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: fossology/scheduler.latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "11"
+    creationTimestamp: "2025-06-17T14:50:12Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 7df8687556
+    name: scheduler-7df8687556
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "209736"
+    uid: c2467d2c-b91f-45a1-aaea-d3e7d1499194
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 7df8687556
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:42:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 7df8687556
+      spec:
+        containers:
+        - args:
+          - scheduler ${FOSSOLOGY_DB_HOST} ${FOSSOLOGY_DB_NAME} ${FOSSOLOGY_DB_USER}
+            ${FOSSOLOGY_DB_PASSWORD}
+          command:
+          - /bin/bash
+          - -c
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:3.11.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "6"
+    creationTimestamp: "2025-06-16T17:35:31Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 855694f967
+    name: scheduler-855694f967
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "177773"
+    uid: 07dceb4d-6933-482f-83ea-5a2dc75d3a36
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 855694f967
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T22:33:10+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 855694f967
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: docker.io/fossology/scheduler:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: scheduler
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        subdomain: svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "15"
+    creationTimestamp: "2025-06-18T11:49:38Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: 856c649c5d
+    name: scheduler-856c649c5d
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "236563"
+    uid: dc23e414-7a55-4d4e-85b9-a7ec1c9715fd
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: 856c649c5d
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: 856c649c5d
+      spec:
+        containers:
+        - env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:3.11.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "16"
+    creationTimestamp: "2025-06-18T12:15:30Z"
+    generation: 3
+    labels:
+      app: scheduler
+      pod-template-hash: c946fd8b4
+    name: scheduler-c946fd8b4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "236608"
+    uid: 68fcc0a7-37a5-4e6b-98da-b06de8daffb0
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: c946fd8b4
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: c946fd8b4
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:3.11.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "17"
+    creationTimestamp: "2025-06-18T14:57:20Z"
+    generation: 2
+    labels:
+      app: scheduler
+      pod-template-hash: fc699d898
+    name: scheduler-fc699d898
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: scheduler
+      uid: ab6eec5e-7e67-4e03-92ac-8de92ffee0a8
+    resourceVersion: "275740"
+    uid: a2031756-167a-4947-8695-8811e68061aa
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: scheduler
+        pod-template-hash: fc699d898
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-18T01:21:50+05:00"
+        creationTimestamp: null
+        labels:
+          app: scheduler
+          pod-template-hash: fc699d898
+      spec:
+        containers:
+        - args:
+          - scheduler
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            value: db
+          - name: FOSSOLOGY_DB_NAME
+            value: fossology
+          - name: FOSSOLOGY_DB_USER
+            value: fossy
+          - name: FOSSOLOGY_DB_PASSWORD
+            value: fossy
+          image: fossology/scheduler:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: scheduler
+          ports:
+          - containerPort: 24693
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - "true"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: internal-kubectl
+        serviceAccountName: internal-kubectl
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: ununpack
+      app: agent
+      pod-template-hash: f986bd864
+    name: ununpack-f986bd864
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: ununpack
+      uid: 951de4d2-9ee6-4c2f-92a9-c714c4c14f32
+    resourceVersion: "271506"
+    uid: 7383c161-6543-4a3f-b280-08990fa2ff7b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: ununpack
+        app: agent
+        pod-template-hash: f986bd864
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: ununpack
+          app: agent
+          pod-template-hash: f986bd864
+      spec:
+        containers:
+        - args:
+          - agent
+          - ununpack
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/ununpack:latest
+          imagePullPolicy: IfNotPresent
+          name: ununpack
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: ununpack
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "17"
+    creationTimestamp: "2025-06-10T05:34:14Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 58b464c7cc
+    name: web-58b464c7cc
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "50033"
+    uid: 0ad41fb1-fe3b-41ca-be18-373cc560c521
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 58b464c7cc
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-10T10:33:42+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 58b464c7cc
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "23"
+    creationTimestamp: "2025-06-14T08:51:18Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 59754f455c
+    name: web-59754f455c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "143753"
+    uid: 60e70b31-5992-4772-a07b-417488c4a5a2
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 59754f455c
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-14T13:50:46+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 59754f455c
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "26"
+    creationTimestamp: "2025-06-16T11:34:22Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 6888fcd6f4
+    name: web-6888fcd6f4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "238925"
+    uid: 9f496ee5-55e3-4b5d-94dc-c25d673a4481
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 6888fcd6f4
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T16:33:52+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 6888fcd6f4
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "22"
+    creationTimestamp: "2025-06-14T08:46:25Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 69587d9df4
+    name: web-69587d9df4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "143433"
+    uid: cfb223d8-918e-4492-bda3-d1dbc7c38478
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 69587d9df4
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-14T13:45:54+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 69587d9df4
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "25"
+    creationTimestamp: "2025-06-14T09:02:55Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 6c5f64547c
+    name: web-6c5f64547c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "159262"
+    uid: 7bdba04e-084b-4157-a1cd-a290b6c0a111
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 6c5f64547c
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-14T14:02:24+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 6c5f64547c
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "24"
+    creationTimestamp: "2025-06-14T08:56:54Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 6df95897bf
+    name: web-6df95897bf
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "144091"
+    uid: c93bd308-aadb-48f8-8b55-b9b084f3741f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 6df95897bf
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-14T13:56:22+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 6df95897bf
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "18"
+    creationTimestamp: "2025-06-10T06:04:11Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 76c58d645c
+    name: web-76c58d645c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "51430"
+    uid: e8b82e96-f9b7-4c7a-99a4-cfaadca2c0d1
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 76c58d645c
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-10T11:03:40+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 76c58d645c
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "21"
+    creationTimestamp: "2025-06-11T17:11:30Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 779d7bf594
+    name: web-779d7bf594
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "143149"
+    uid: 1de5f5dc-59ca-4c6d-80a6-ce97e46ce5b8
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 779d7bf594
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-11T22:10:59+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 779d7bf594
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "27"
+    creationTimestamp: "2025-06-18T15:40:35Z"
+    generation: 1
+    labels:
+      app: web
+      pod-template-hash: 7fcdfc869f
+    name: web-7fcdfc869f
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "271531"
+    uid: 3b49aea6-70a4-476a-8756-a92a3652ea1b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 7fcdfc869f
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-16T16:33:52+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 7fcdfc869f
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - sh
+          - -c
+          - until nc -z $(FOSSOLOGY_DB_HOST) 5432; do echo "Waiting for DB..."; sleep
+            3; done
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          image: busybox
+          imagePullPolicy: Always
+          name: wait-for-db
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "19"
+    creationTimestamp: "2025-06-10T08:58:22Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: 864774fc59
+    name: web-864774fc59
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "56264"
+    uid: 959ae6a8-1a9b-43bf-ba0f-704379cc3ef0
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: 864774fc59
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-10T13:57:52+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: 864774fc59
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "20"
+    creationTimestamp: "2025-06-10T10:38:17Z"
+    generation: 2
+    labels:
+      app: web
+      pod-template-hash: c84795448
+    name: web-c84795448
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: web
+      uid: e02f9d88-d077-42ba-a630-6c8bb7b823f3
+    resourceVersion: "88604"
+    uid: 5e6dda73-55ac-4468-bd10-3492d759d7b8
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: web
+        pod-template-hash: c84795448
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-06-10T15:37:46+05:00"
+        creationTimestamp: null
+        labels:
+          app: web
+          pod-template-hash: c84795448
+      spec:
+        containers:
+        - args:
+          - web
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/web:latest
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 1
+    labels:
+      agent.type: wget_agent
+      app: agent
+      pod-template-hash: 5c88bb9575
+    name: wgetagent-5c88bb9575
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wgetagent
+      uid: 011bc3c2-d4c0-4f80-a49b-6f3f68b821ae
+    resourceVersion: "271489"
+    uid: 9f1553bd-0611-46c8-9127-e37c35464d0b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        agent.type: wget_agent
+        app: agent
+        pod-template-hash: 5c88bb9575
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          agent.type: wget_agent
+          app: agent
+          pod-template-hash: 5c88bb9575
+      spec:
+        containers:
+        - args:
+          - agent
+          - wget_agent
+          env:
+          - name: FOSSOLOGY_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_DB_HOST
+                name: fossology
+          - name: FOSSOLOGY_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: FOSSOLOGY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: FOSSOLOGY_DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          - name: FOSSOLOGY_SCHEDULER_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: FOSSOLOGY_SCHEDULER_HOST
+                name: fossology
+          image: fossology/wgetagent:latest
+          imagePullPolicy: IfNotPresent
+          name: wgetagent
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /srv/fossology/repository/
+            name: repository
+        dnsPolicy: ClusterFirst
+        hostname: wgetagent
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        subdomain: agent-svc
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: repository
+          persistentVolumeClaim:
+            claimName: repository
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"StatefulSet","metadata":{"annotations":{},"name":"db","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"db"}},"serviceName":"db","template":{"metadata":{"labels":{"app":"db"}},"spec":{"containers":[{"env":[{"name":"POSTGRES_DB","valueFrom":{"configMapKeyRef":{"key":"POSTGRES_DB","name":"db"}}},{"name":"POSTGRES_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}},{"name":"POSTGRES_USER","valueFrom":{"secretKeyRef":{"key":"POSTGRES_USER","name":"db-secret"}}}],"image":"postgres:13","name":"db","ports":[{"containerPort":5432}],"volumeMounts":[{"mountPath":"/var/lib/postgresql/data","name":"database"},{"mountPath":"/docker-entrypoint-initdb.d","name":"init-scripts"}]}],"volumes":[{"emptyDir":{},"name":"database"},{"configMap":{"name":"postgres-init-scripts"},"name":"init-scripts"}]}}}}
+    creationTimestamp: "2025-06-08T05:17:34Z"
+    generation: 12
+    name: db
+    namespace: default
+    resourceVersion: "271521"
+    uid: a1b3d314-f544-48b9-996d-d7fd0e6f68dc
+  spec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: db
+    serviceName: db
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: db
+      spec:
+        containers:
+        - env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                key: POSTGRES_DB
+                name: db
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: db-secret
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_USER
+                name: db-secret
+          image: postgres:13
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+          - containerPort: 5432
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: database
+          - mountPath: /docker-entrypoint-initdb.d
+            name: init-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: database
+        - configMap:
+            defaultMode: 420
+            name: postgres-init-scripts
+          name: init-scripts
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+  status:
+    availableReplicas: 1
+    collisionCount: 0
+    currentReplicas: 1
+    currentRevision: db-65fcbbc84b
+    observedGeneration: 12
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: db-65fcbbc84b
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

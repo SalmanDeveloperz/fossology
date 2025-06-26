@@ -918,6 +918,7 @@ void scheduler_agent_config(scheduler_t* scheduler)
       NOTIFY("Debug ma list cmd %s", cmd);
       NOTIFY("Debug ma list max %d", max);
       NOTIFY("Debug ma list name %s", name);
+      struct dirent *ep;
       if(!add_meta_agent(scheduler->meta_agents, name, cmd, max, special))
       {
         V_SCHED("CONFIG: could not create meta agent using %s\n", ep->d_name);
