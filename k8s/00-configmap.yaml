@@ -15,5 +15,5 @@ metadata:
   labels:
     app: fossology
 data:
-  FOSSOLOGY_DB_HOST: db
-  FOSSOLOGY_SCHEDULER_HOST: scheduler
+  FOSSOLOGY_DB_HOST: db.default.svc.cluster.local
+  FOSSOLOGY_SCHEDULER_HOST: scheduler.default.svc.cluster.local

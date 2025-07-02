@@ -37,7 +37,7 @@ foreach(FO_CLIB_TARGET fossology fossology_cov)
             ${FO_CWD}/sqlCopy.c
             ${FO_CWD}/libfossagentref.h)
     target_link_libraries(${FO_CLIB_TARGET}
-        PRIVATE ${glib_LIBRARIES} ${PostgreSQL_LIBRARIES})
+        PRIVATE ${glib_LIBRARIES} ${PostgreSQL_LIBRARIES} json-c curl)
 endforeach()
 
 target_compile_options(fossology_cov PRIVATE ${FO_COV_FLAGS})
@@ -45,7 +45,11 @@ target_compile_options(fossology_cov PRIVATE ${FO_COV_FLAGS})
 foreach(FO_CLIB_EXEC sqlCopyTest fossconfigTest reppath)
     add_executable(${FO_CLIB_EXEC} "")
     target_sources(${FO_CLIB_EXEC} PRIVATE ${FO_CLIB_EXEC}.c)
-    target_link_libraries(${FO_CLIB_EXEC} PRIVATE fossology)
+    target_link_libraries(${FO_CLIB_EXEC}
+        PRIVATE fossology
+        json-c
+        curl
+    )
     target_compile_definitions(${FO_CLIB_EXEC}
         PRIVATE
         _FILE_OFFSET_BITS=64
@@ -54,6 +58,7 @@ foreach(FO_CLIB_EXEC sqlCopyTest fossconfigTest reppath)
         DEFAULT_SETUP="${FO_SYSCONFDIR}"
     )
 endforeach()
+
 
 target_include_directories(fossology
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>)

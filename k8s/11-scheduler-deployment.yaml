@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: scheduler
   labels:
     app: scheduler
-  name: scheduler
 spec:
   replicas: 1
   selector:
@@ -13,7 +13,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      
       labels:
         app: scheduler
     spec:
@@ -21,8 +20,11 @@ spec:
       subdomain: svc
       serviceAccountName: internal-kubectl
       containers:
-        - args:
-            - scheduler
+        - name: scheduler
+          image: fossology/scheduler:latest
+          command: ["/fossology/docker-entrypoint.sh", "scheduler"]
+          ports:
+            - containerPort: 24693
           env:
             - name: FOSSOLOGY_DB_HOST
               valueFrom:
@@ -44,18 +46,13 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: POSTGRES_USER
-          image: fossology/scheduler:latest
-          ports:
-            - containerPort: 24693
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
-              command:
-                - "true"
+              command: ["true"]
             failureThreshold: 2
             periodSeconds: 5
             timeoutSeconds: 5
-          name: scheduler
           resources: {}
           volumeMounts:
             - mountPath: /srv/fossology/repository/
