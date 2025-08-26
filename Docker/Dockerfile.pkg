@@ -4,33 +4,38 @@
 #
 # Description: Docker container image recipe for pacakges base image
 
-# FROM debian:buster-slim as builder
-FROM debian:buster-slim AS builder
+FROM debian:bookworm-slim AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y git ca-certificates 
-        
-RUN  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget lsb-release sudo composer curl php-cli \
-  && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y libcppunit-dev libcunit1-dev libcurl4-openssl-dev libjson-c-dev libdbd-sqlite3-perl \
-  && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y php-sqlite3 php-zip tar debhelper libssl-dev postgresql-server-dev-all
+# now installing all required packages, compilers, libraris, postgreSQL for build 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    git ca-certificates wget lsb-release sudo composer curl php-cli \
+    libcppunit-dev libcunit1-dev libcurl4-openssl-dev libjson-c-dev libdbd-sqlite3-perl \
+    php-sqlite3 php-zip tar debhelper libssl-dev postgresql-server-dev-all \
+    libcurl4-openssl-dev libdb-dev libpq-dev python3-dev libgcrypt20-dev libglib2.0-dev \
+    ninja-build
+
+# installing CMake >>>>>=========== 3.19 to 3.25 (bringing source code from local to docker image)
+RUN wget https://cmake.org/files/v3.25/cmake-3.25.0-linux-x86_64.sh && \
+    chmod +x cmake-3.25.0-linux-x86_64.sh && \
+    ./cmake-3.25.0-linux-x86_64.sh --skip-license --prefix=/usr/local
 
 COPY . /fossology_packages/fossology
 
+# automatically install if any missing build dependency required,
 RUN  ./utils/fo-installdeps -y -b
 
-RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libdb-dev \
-    libpq-dev \
-    python3-dev \
-    libgcrypt20-dev \
-    libglib2.0-dev \
-    debhelper
-
-RUN  ./utils/fo-debuild --no-sign --no-tar       
+RUN rm -rf ./build && \
+    # installing cmake and ninja to compile FOSSology to .deb files
+    cmake -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DFO_SYSCONFDIR=/etc/fossology \
+          -DFO_LOCALSTATEDIR=/var \
+          -S . -B ./build -G Ninja && \
+    ninja -C ./build package
 
 ENV FOSSOLOGY_DB_HOST=db
 ENV FOSSOLOGY_DB_NAME=fossology
@@ -41,4 +46,5 @@ FROM scratch
 
 WORKDIR /fossology_packages/fossology
 
-COPY --from=builder /fossology_packages/fossology/packages /fossology_packages/fossology/packages
+# copying the compiled packages for the final imagg
+COPY --from=builder /fossology_packages/fossology/build/*.deb /fossology_packages/fossology/packages/

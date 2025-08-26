@@ -4,12 +4,12 @@
 #
 # Description: Docker container image recipe for ununpack agent
 
-FROM fossology/packages:latest as builder
+FROM fossology/packages:latest AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 WORKDIR /fossology
 
@@ -22,7 +22,7 @@ COPY --from=builder /fossology_packages/fossology/packages/fossology-ununpack_*_
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && dpkg -i fossology-common_*_amd64.deb fossology-ununpack_*_amd64.deb || echo "deb failed" \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y -f \
-    && DEBIAN_FRONTEND=noninteractive apt-get install curl libjson-c-dev -y
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y curl libjson-c-dev
 
 COPY ./Docker/fo_cli /usr/share/fossology/scheduler/agent/
 COPY ./Docker/fo_conf.sh  /fossology/

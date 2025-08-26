@@ -1,31 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scheduler
   labels:
-    app: scheduler
+    app: agent
+    agent.type: readmeoss
+  name: readmeoss
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scheduler
-  strategy:
-    type: Recreate
+      app: agent
+      agent.type: readmeoss
+  strategy: {}
   template:
     metadata:
       labels:
-        app: scheduler
+        app: agent
+        agent.type: readmeoss
     spec:
-      hostname: scheduler
-      subdomain: svc
-      serviceAccountName: internal-kubectl
+      hostname: readmeoss
+      subdomain: agent-svc
       containers:
-        - name: scheduler
-          image: fossology/scheduler:latest
-          imagePullPolicy: Never
-          args: ["scheduler"]
-          ports:
-            - containerPort: 24693
+        - args:
+            - agent
+            - readmeoss
           env:
             - name: FOSSOLOGY_DB_HOST
               valueFrom:
@@ -47,22 +45,18 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: POSTGRES_USER
-          livenessProbe:
-            exec:
-              command: ["pg_isready", "-h", "db", "-p", "5432", "-U", "$(FOSSOLOGY_DB_USER)"]
-            failureThreshold: 3
-            periodSeconds: 10
-            timeoutSeconds: 5
-          readinessProbe:
-            exec:
-              command: ["pg_isready", "-h", "db", "-p", "5432", "-U", "$(FOSSOLOGY_DB_USER)"]
-            failureThreshold: 3
-            periodSeconds: 10
-            timeoutSeconds: 5
-          resources: {}
+            - name: FOSSOLOGY_SCHEDULER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fossology
+                  key: FOSSOLOGY_SCHEDULER_HOST
+          image: fossology/readmeoss:latest
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /srv/fossology/repository/
               name: repository
+          name: readmeoss
+          resources: {}
       restartPolicy: Always
       volumes:
         - name: repository

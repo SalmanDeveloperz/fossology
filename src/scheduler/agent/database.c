@@ -19,8 +19,6 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
-#include <json-c/json.h>
-#include <curl/curl.h>
 
 /* all of the sql statements used in the database */
 #include <sqlstatements.h>

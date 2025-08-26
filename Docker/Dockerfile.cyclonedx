@@ -1,8 +1,8 @@
-# FOSSology Dockerfile
-# SPDX-FileCopyrightText: 2021 Omar AbdelSamea <omarmohamed168@gmail.com>
+# FOSSology Dockerfile for cyclonedx agent
+# SPDX-FileCopyrightText: 2025 Muhammad Salman <chsalmanramzan422@gmail.com>
 # SPDX-License-Identifier: GPL-2.0
-#
-# Description: Docker container image recipe for wgetagent
+
+# Description: Docker container image recipe for cyclonedx agent
 
 FROM fossology/packages:latest AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
@@ -15,18 +15,18 @@ WORKDIR /fossology
 
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
-### install dependencies
 COPY --from=builder /fossology_packages/fossology/packages/fossology-common_*_amd64.deb .
-COPY --from=builder /fossology_packages/fossology/packages/fossology-wgetagent_*_amd64.deb .
+COPY --from=builder /fossology_packages/fossology/packages/fossology-cyclonedx_*_amd64.deb .
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && dpkg -i fossology-common_*_amd64.deb fossology-wgetagent_*_amd64.deb || echo "deb failed" \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y -f \
-    && DEBIAN_FRONTEND=noninteractive apt-get install curl libjson-c-dev -y
+    && mkdir -p /etc/fossology \
+    && dpkg -i fossology-common_*_amd64.deb fossology-cyclonedx_*_amd64.deb || echo "deb failed" \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y -f
 
+COPY ./fossology.conf /etc/fossology/fossology.conf
 COPY ./Docker/fo_cli /usr/share/fossology/scheduler/agent/
-COPY ./Docker/fo_conf.sh  /fossology/
-
+COPY ./Docker/fo_conf.sh /fossology/
 COPY ./Docker/docker-entrypoint.k8s.sh /fossology/docker-entrypoint.sh
+
 RUN chmod +x /fossology/docker-entrypoint.sh
 ENTRYPOINT ["/fossology/docker-entrypoint.sh"]

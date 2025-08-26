@@ -9,7 +9,7 @@ LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 WORKDIR /fossology
 

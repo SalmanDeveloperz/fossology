@@ -4,12 +4,12 @@
 
 # Description: Docker container image recipe for adj2nest agent
 
-FROM fossology/packages:latest as builder
+FROM fossology/packages:latest AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 WORKDIR /fossology
 

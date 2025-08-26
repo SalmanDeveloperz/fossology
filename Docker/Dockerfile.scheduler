@@ -1,17 +1,16 @@
 # FOSSology Dockerfile
 # SPDX-FileCopyrightText: 2021 Omar AbdelSamea <omarmohamed168@gmail.com>
 # SPDX-License-Identifier: GPL-2.0
-#
 # Description: Docker container image recipe for scheduler
 
 # Builder stage to compile and package dependencies
-FROM fossology/packages:latest as builder
+FROM fossology/packages:latest AS builder
 LABEL maintainer="Fossology <fossology@fossology.org>"
 
 WORKDIR /fossology_packages/fossology
 
 # Final runtime image
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 WORKDIR /fossology
 
@@ -19,17 +18,63 @@ LABEL maintainer="Fossology <fossology@fossology.org>"
 
 # Install required dependencies (client only, no server)
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-client dnsutils curl libcurl4-openssl-dev
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    postgresql-client \
+    postgresql \
+    dnsutils \
+    curl \
+    libcurl4-openssl-dev \
+    s-nail \
+    libglib2.0-0 \
+    php8.2-pgsql \
+    php-pear \
+    php8.2-cli \
+    php-mbstring \
+    php-json \
+    php-zip \
+    php-xml \
+    php8.2-curl \
+    php-uuid \
+    php8.2-gd \
+    php8.2-yaml \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy deb packages from builder stage
-COPY --from=builder /fossology_packages/fossology/packages/fossology-common_*_amd64.deb .
-COPY --from=builder /fossology_packages/fossology/packages/fossology-db_*_amd64.deb .
-COPY --from=builder /fossology_packages/fossology/packages/fossology-scheduler_*_amd64.deb .
+# as ****dbcreate***** script was missing for fo-postinstall, that's hwy I am copying it
+COPY ./src/testing/utils/dbcreate /usr/lib/fossology/dbcreate
+RUN chmod +x /usr/lib/fossology/dbcreate
 
-# Install deb packages and force configuration skip for local DB
-RUN DEBIAN_FRONTEND=noninteractive dpkg -i --force-confmiss fossology-common_*_amd64.deb fossology-scheduler_*_amd64.deb fossology-db_*_amd64.deb || echo "deb failed" \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y -f \
-    && dpkg --configure --force-confmiss -a
+
+# creating configuration directory
+RUN mkdir -p /etc/fossology
+
+#  copy deb packages from builder stage
+COPY --from=builder /fossology_packages/fossology/packages/fossology-common_*_amd64.deb /tmp/
+COPY --from=builder /fossology_packages/fossology/packages/fossology-db_*_amd64.deb /tmp/
+COPY --from=builder /fossology_packages/fossology/packages/fossology-scheduler_*_amd64.deb /tmp/
+
+# creating Db.conf template to avoid postinstall failures
+RUN echo "[DATABASE]\n\
+    dbhost = db\n\
+    dbname = \${FOSSOLOGY_DB_NAME}\n\
+    dbuser = \${FOSSOLOGY_DB_USER}\n\
+    dbpassword = \${FOSSOLOGY_DB_PASSWORD}\n" > /etc/fossology/Db.conf \
+    && chmod 644 /etc/fossology/Db.conf
+
+# bypassing local database checks during build
+RUN echo "#!/bin/bash\nexit 0" > /usr/bin/psql \
+    && chmod +x /usr/bin/psql
+
+# installalin deb packages and fix dependencies
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive dpkg -i --force-confold /tmp/*.deb || (echo "Missing dependencies. Trying to fix" && DEBIAN_FRONTEND=noninteractive apt-get install --fix-broken --yes --option Dpkg::Options::="--force-confold" --option Dpkg::Options::="--force-overwrite") \
+    && apt-get remove -y postgresql \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/*.deb
+
+RUN rm /usr/bin/psql \
+    && ln -s /usr/lib/postgresql/*/bin/psql /usr/bin/psql
 
 # Install kubectl for Kubernetes interaction
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
@@ -38,18 +83,22 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 
 # Copy necessary files
 COPY ./src/www/ui/core-schema.dat /usr/share/fossology/www/ui/
-COPY /home/dev/Omar/fossology/src/lib/php/tests/sysconfigDirTest/fossology.conf /etc/fossology/fossology.conf
+COPY ./fossology.conf /etc/fossology.conf
+COPY ./Docker/fo_conf.sh /fossology/fo_conf.sh
+#  updating fossology.conf
+RUN sed -i 's/address = localhost/address = db.default.svc.cluster.local/' /etc/fossology.conf \
+    && sed -i 's/port = 5555/port = 5432/' /etc/fossology.conf \
+    && chmod 644 /etc/fossology.conf
+
 COPY ./Docker/docker-entrypoint.k8s.sh /fossology/docker-entrypoint.sh
 
-# Pre-apply config changes during build to avoid runtime sed issues
-RUN sed -i 's/address = localhost/address = db/' /etc/fossology/fossology.conf \
-    && sed -i 's/port = 5555/port = 5432/' /etc/fossology/fossology.conf \
-    && chmod 644 /etc/fossology/fossology.conf
+# Pre-apply config changes during build to avoid runtime sed issues which was causingg earlier in buster sliim
+RUN ls -l /fossology/docker-entrypoint.sh
 
-# Ensure entrypoint is executable and set
+# now entrypoint is executable and set
 RUN chmod +x /fossology/docker-entrypoint.sh
 ENTRYPOINT ["/fossology/docker-entrypoint.sh"]
 
 # Create kube directory for kubectl
 RUN mkdir -p /root/.kube \
-    && chmod -R o=rwx /root/
+    && chmod 700 /root/.kube
