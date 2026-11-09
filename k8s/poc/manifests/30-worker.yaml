@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+#
+# Agent worker: runs only sshd. fo_scheduler reaches it through the
+# fossology-worker Service and starts agents with
+#   ssh fossology-worker <agent_dir>/mods-enabled/<agent>/agent/<cmd> ...
+# exactly as it does for any remote host listed in [HOSTS].
+apiVersion: v1
+kind: Service
+metadata:
+  name: fossology-worker
+  namespace: fossology
+spec:
+  selector:
+    app.kubernetes.io/name: fossology
+    app.kubernetes.io/component: worker
+  ports:
+  - name: ssh
+    port: 22
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fossology-worker
+  namespace: fossology
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fossology
+      app.kubernetes.io/component: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fossology
+        app.kubernetes.io/component: worker
+    spec:
+      containers:
+      - name: worker
+        image: fossology-k8s:poc
+        imagePullPolicy: Never
+        args: ["worker"]
+        envFrom:
+        - secretRef:
+            name: fossology-db
+        ports:
+        - name: ssh
+          containerPort: 22
+        readinessProbe:
+          tcpSocket:
+            port: ssh
+          periodSeconds: 5
+        volumeMounts:
+        - name: repository
+          mountPath: /srv/fossology/repository
+        - name: ssh
+          mountPath: /etc/fossology-ssh
+          readOnly: true
+      volumes:
+      - name: repository
+        persistentVolumeClaim:
+          claimName: fossology-repository
+      - name: ssh
+        secret:
+          secretName: fossology-ssh
+          items:
+          - key: authorized_keys
+            path: authorized_keys

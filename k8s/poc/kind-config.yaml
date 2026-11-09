@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+#
+# Host port 8082 avoids clashing with docker-compose's 8081.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: fossology-dev
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 30081
+    hostPort: 8082
+    protocol: TCP

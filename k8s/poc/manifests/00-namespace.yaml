@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fossology
+---
+# PoC-only credentials, identical to the docker-compose.yml defaults.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fossology-db
+  namespace: fossology
+type: Opaque
+stringData:
+  FOSSOLOGY_DB_HOST: fossology-db
+  FOSSOLOGY_DB_NAME: fossology
+  FOSSOLOGY_DB_USER: fossy
+  FOSSOLOGY_DB_PASSWORD: fossy
