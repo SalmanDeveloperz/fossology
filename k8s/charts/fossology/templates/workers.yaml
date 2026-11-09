@@ -1,0 +1,101 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+
+Agent workers run only sshd. fo_scheduler reaches each one through its stable
+StatefulSet DNS name and starts agents with
+  ssh <worker> <agent_dir>/mods-enabled/<agent>/agent/<cmd> ...
+exactly as for any remote host in [HOSTS].
+*/}}
+{{- if .Values.workers.enabled }}
+{{- $name := include "fossology.workerName" . }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "worker") | nindent 4 }}
+spec:
+  clusterIP: None
+  # The scheduler checks SSH itself; publish DNS before readiness.
+  publishNotReadyAddresses: true
+  selector:
+    {{- include "fossology.selectorLabels" (dict "ctx" . "component" "worker") | nindent 4 }}
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: ssh
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "worker") | nindent 4 }}
+spec:
+  serviceName: {{ $name }}
+  replicas: {{ .Values.workers.replicas }}
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      {{- include "fossology.selectorLabels" (dict "ctx" . "component" "worker") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "fossology.labels" (dict "ctx" . "component" "worker") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      {{- include "fossology.podScheduling" . | nindent 6 }}
+      initContainers:
+        # Only this container sees the private key.
+        - name: authorized-keys
+          image: {{ include "fossology.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["authorized-keys"]
+          volumeMounts:
+            - name: ssh-key
+              mountPath: /etc/fossology-ssh-key
+              readOnly: true
+            - name: authorized-keys
+              mountPath: /etc/fossology-ssh
+      containers:
+        - name: worker
+          image: {{ include "fossology.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["worker"]
+          env:
+            {{- include "fossology.dbEnv" . | nindent 12 }}
+          ports:
+            - name: ssh
+              containerPort: 22
+          readinessProbe:
+            tcpSocket:
+              port: ssh
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: ssh
+            periodSeconds: 10
+            failureThreshold: 6
+          {{- with .Values.workers.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: repository
+              mountPath: /srv/fossology/repository
+            - name: authorized-keys
+              mountPath: /etc/fossology-ssh
+              readOnly: true
+      volumes:
+        {{- include "fossology.repositoryVolume" . | nindent 8 }}
+        - name: ssh-key
+          secret:
+            secretName: {{ include "fossology.sshSecretName" . }}
+            defaultMode: 0400
+            items:
+              - key: id_rsa
+                path: id_rsa
+        - name: authorized-keys
+          emptyDir: {}
+{{- end }}

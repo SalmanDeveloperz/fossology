@@ -1,0 +1,99 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+*/}}
+{{- if and .Values.workers.enabled (lt (int .Values.workers.replicas) 1) }}
+{{- fail "workers.replicas must be at least 1 when workers.enabled is true" }}
+{{- end }}
+{{- $name := printf "%s-scheduler" (include "fossology.fullname" .) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "scheduler") | nindent 4 }}
+spec:
+  selector:
+    {{- include "fossology.selectorLabels" (dict "ctx" . "component" "scheduler") | nindent 4 }}
+  ports:
+    - name: scheduler
+      port: 24693
+      targetPort: scheduler
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "scheduler") | nindent 4 }}
+spec:
+  # Two schedulers must never share one job queue.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "fossology.selectorLabels" (dict "ctx" . "component" "scheduler") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "fossology.labels" (dict "ctx" . "component" "scheduler") | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "fossology.migrationReader" . }}
+      automountServiceAccountToken: false
+      {{- include "fossology.podScheduling" . | nindent 6 }}
+      initContainers:
+        {{- include "fossology.waitMigrationInit" . | nindent 8 }}
+      containers:
+        - name: scheduler
+          image: {{ include "fossology.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["scheduler"]
+          env:
+            {{- include "fossology.dbEnv" . | nindent 12 }}
+            - name: FOSSOLOGY_HOSTS
+              value: {{ include "fossology.hosts" . | trim | toJson }}
+            - name: FOSSOLOGY_SCHEDULER_VERBOSE
+              value: {{ .Values.scheduler.verbose | quote }}
+          ports:
+            - name: scheduler
+              containerPort: 24693
+          # Startup includes waiting for every worker and self-testing every agent.
+          startupProbe:
+            tcpSocket:
+              port: scheduler
+            periodSeconds: 5
+            failureThreshold: 120
+          readinessProbe:
+            tcpSocket:
+              port: scheduler
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: scheduler
+            periodSeconds: 10
+            failureThreshold: 6
+          {{- with .Values.scheduler.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: repository
+              mountPath: /srv/fossology/repository
+            {{- if .Values.workers.enabled }}
+            - name: ssh-key
+              mountPath: /etc/fossology-ssh-key
+              readOnly: true
+            {{- end }}
+      volumes:
+        {{- include "fossology.repositoryVolume" . | nindent 8 }}
+        {{- include "fossology.waitMigrationVolume" . | nindent 8 }}
+        {{- if .Values.workers.enabled }}
+        - name: ssh-key
+          secret:
+            secretName: {{ include "fossology.sshSecretName" . }}
+            defaultMode: 0400
+            items:
+              - key: id_rsa
+                path: id_rsa
+        {{- end }}

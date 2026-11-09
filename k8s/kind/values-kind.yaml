@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+#
+# Local kind cluster: NodePort 30081 is mapped to host port 8082 by
+# kind-config.yaml. The single node lets a ReadWriteOnce repository volume be
+# shared by every pod.
+web:
+  service:
+    type: NodePort
+    nodePort: 30081

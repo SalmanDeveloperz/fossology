@@ -17,8 +17,16 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
 fail() { echo "FAIL: $*" >&2; exit 1; }
+worker_pods() {
+  kubectl -n "$NS" get pods -l app.kubernetes.io/component=worker \
+    -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+}
+# Prints "<pod> <accepted SSH sessions>" per worker.
 ssh_sessions() {
-  kubectl -n "$NS" logs deploy/fossology-worker | grep -c 'Accepted publickey for fossy' || true
+  local pod
+  for pod in $(worker_pods); do
+    echo "$pod $(kubectl -n "$NS" logs "$pod" -c worker | grep -c 'Accepted publickey for fossy' || true)"
+  done
 }
 
 echo "== 1. [HOSTS] has no localhost, so no agent can run inside the scheduler pod"
@@ -92,11 +100,25 @@ cr="$(curl -fsS "$API/uploads/$upload_id/copyrights" -H "Authorization: $token")
 echo "$cr"
 echo "$cr" | grep -q 'Example Author' || fail "copyright agent found nothing"
 
-echo "== 8. SSH sessions the worker accepted during the scan"
+echo "== 8. SSH sessions the workers accepted during the scan"
 sessions_after="$(ssh_sessions)"
-delta=$((sessions_after - sessions_before))
-echo "new SSH sessions on worker: $delta"
-(( delta > 0 )) || fail "no agent was dispatched to the worker"
+total=0
+while read -r pod after; do
+  before="$(awk -v p="$pod" '$1 == p { print $2 }' <<< "$sessions_before")"
+  delta=$((after - ${before:-0}))
+  total=$((total + delta))
+  echo "$pod: $delta new session(s)"
+done <<< "$sessions_after"
+(( total > 0 )) || fail "no agent was dispatched to a worker"
+
+echo "== 9. NetworkPolicy: the web pod must not reach worker SSH"
+first_worker="$(worker_pods | head -1)"
+if kubectl -n "$NS" exec deploy/fossology-web -c web -- \
+     timeout 5 bash -c "</dev/tcp/$first_worker.fossology-worker/22" 2>/dev/null; then
+  echo "WARNING: web reached $first_worker:22; this cluster's CNI does not enforce NetworkPolicy"
+else
+  echo "blocked as expected"
+fi
 
 echo
-echo "PASS: upload $upload_id scanned entirely on the worker pod over SSH"
+echo "PASS: upload $upload_id scanned on the worker pods over SSH"

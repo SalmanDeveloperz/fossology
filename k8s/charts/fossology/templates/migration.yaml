@@ -1,0 +1,57 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+
+Not a Helm hook on purpose: a post-install hook only runs after `helm
+install --wait` sees every pod ready, but the scheduler cannot become ready
+before the schema exists. The Job is named after a hash of its pod template,
+so it re-runs only when the image or database target changes, and scheduler
+and web init containers wait for it.
+*/}}
+{{- $job := include "fossology.migrationJob" . }}
+{{- $reader := include "fossology.migrationReader" . }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $reader }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "migration") | nindent 4 }}
+automountServiceAccountToken: false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $reader }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "migration") | nindent 4 }}
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    resourceNames: [{{ $job | quote }}]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $reader }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "migration") | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $reader }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $reader }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $job }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "migration") | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.migration.backoffLimit }}
+  template:
+    {{- include "fossology.migrationPodSpec" . | nindent 4 }}

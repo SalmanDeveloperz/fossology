@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+
+# Image built from k8s/image (stock FOSSology image + openssh-server).
+# It must be built from a clone with the upstream git tags; see the README.
+image:
+  repository: fossology-k8s
+  # Defaults to the chart appVersion.
+  tag: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Connection settings shared by every FOSSology component.
+database:
+  # Required when postgresql.enabled is false; ignored otherwise.
+  host: ""
+  name: fossology
+  user: fossy
+  # Ignored when existingSecret is set.
+  password: fossy
+  # Secret with the database password under the key "password".
+  existingSecret: ""
+
+# Built-in PostgreSQL. Disable to use an external server via database.host.
+postgresql:
+  enabled: true
+  image: postgres:16
+  persistence:
+    size: 5Gi
+    storageClass: ""
+  resources: {}
+
+# Shared /srv/fossology/repository, mounted by web, scheduler, migration and
+# every worker. Multi-node clusters need a ReadWriteMany storage class; a
+# ReadWriteOnce volume only works when every pod lands on one node (kind).
+repository:
+  persistence:
+    existingClaim: ""
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    storageClass: ""
+    # Keep uploaded files when the release is uninstalled.
+    keep: true
+
+# Database schema creation and upgrades. Runs once per distinct image and
+# database target; web and scheduler wait for it to succeed.
+migration:
+  backoffLimit: 2
+  resources: {}
+
+scheduler:
+  # fo_scheduler --verbose level.
+  verbose: 3
+  # Agent slots for the scheduler pod itself, used only when workers are disabled.
+  localMaxAgents: 10
+  resources: {}
+
+# SSH agent workers. When enabled, the scheduler runs no agents itself:
+# [HOSTS] lists only the worker pods.
+workers:
+  enabled: true
+  replicas: 1
+  # Concurrent agents the scheduler may start on each worker.
+  maxAgents: 10
+  resources: {}
+
+# RSA key the scheduler uses to reach workers. Generated on first install and
+# kept across upgrades unless existingSecret (key "id_rsa") is set.
+ssh:
+  existingSecret: ""
+
+web:
+  # PHP sessions are stored per pod; more than one replica needs session
+  # affinity at the ingress or service.
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    # Only used when type is NodePort.
+    nodePort: null
+    sessionAffinity: None
+  resources: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  host: fossology.local
+  tls: []
+
+# Restricts worker SSH to the scheduler and PostgreSQL to this release's pods.
+# Needs a CNI that enforces NetworkPolicy.
+networkPolicy:
+  enabled: true
+
+podSecurityContext: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

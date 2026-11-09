@@ -1,0 +1,89 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+*/}}
+{{- if .Values.postgresql.enabled }}
+{{- $name := include "fossology.dbHost" . }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "db") | nindent 4 }}
+spec:
+  selector:
+    {{- include "fossology.selectorLabels" (dict "ctx" . "component" "db") | nindent 4 }}
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "db") | nindent 4 }}
+spec:
+  serviceName: {{ $name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "fossology.selectorLabels" (dict "ctx" . "component" "db") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "fossology.labels" (dict "ctx" . "component" "db") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      {{- include "fossology.podScheduling" . | nindent 6 }}
+      containers:
+        - name: postgres
+          image: {{ .Values.postgresql.image }}
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.database.name | quote }}
+            - name: POSTGRES_USER
+              value: {{ .Values.database.user | quote }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fossology.dbSecretName" . }}
+                  key: password
+            # Same encoding as the upstream docker-compose.yml.
+            - name: POSTGRES_INITDB_ARGS
+              value: "-E SQL_ASCII"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - name: postgres
+              containerPort: 5432
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "pg_isready --dbname \"$POSTGRES_DB\" --username \"$POSTGRES_USER\""]
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", "pg_isready --dbname \"$POSTGRES_DB\" --username \"$POSTGRES_USER\""]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 6
+          {{- with .Values.postgresql.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- with .Values.postgresql.persistence.storageClass }}
+        storageClassName: {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.postgresql.persistence.size }}
+{{- end }}

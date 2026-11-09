@@ -1,0 +1,35 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+*/}}
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "fossology.fullname" . }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "web") | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.host | quote }}
+      http:
+        paths:
+          - path: /repo
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ printf "%s-web" (include "fossology.fullname" .) }}
+                port:
+                  name: http
+{{- end }}

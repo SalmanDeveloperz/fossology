@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: © 2026 Muhammad Salman
+# SPDX-License-Identifier: FSFAP
+apiVersion: v2
+name: fossology
+description: >-
+  FOSSology license compliance toolkit on Kubernetes: web UI, scheduler,
+  PostgreSQL, and SSH agent workers that the scheduler dispatches to through
+  its existing remote-host mechanism.
+type: application
+version: 0.1.0
+appVersion: "master"
+kubeVersion: ">=1.25.0-0"
+home: https://www.fossology.org
+sources:
+  - https://github.com/fossology/fossology
+keywords:
+  - fossology
+  - license-compliance
+  - spdx

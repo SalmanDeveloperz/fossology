@@ -1,0 +1,25 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+*/}}
+{{- if not .Values.repository.persistence.existingClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "fossology.repositoryClaim" . }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "repository") | nindent 4 }}
+  {{- if .Values.repository.persistence.keep }}
+  annotations:
+    helm.sh/resource-policy: keep
+  {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.repository.persistence.accessMode }}
+  {{- with .Values.repository.persistence.storageClass }}
+  storageClassName: {{ . | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.repository.persistence.size }}
+{{- end }}

@@ -1,0 +1,56 @@
+{{/*
+SPDX-FileCopyrightText: © 2026 Muhammad Salman
+SPDX-License-Identifier: FSFAP
+*/}}
+{{- if .Values.networkPolicy.enabled }}
+{{- if .Values.workers.enabled }}
+# Only the scheduler may open SSH sessions on workers.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "fossology.workerName" . }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "worker") | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "fossology.selectorLabels" (dict "ctx" . "component" "worker") | nindent 6 }}
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              {{- include "fossology.selectorLabels" (dict "ctx" . "component" "scheduler") | nindent 14 }}
+      ports:
+        - protocol: TCP
+          port: 22
+{{- end }}
+{{- if .Values.postgresql.enabled }}
+---
+# PostgreSQL accepts connections only from this release's FOSSology pods.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "fossology.dbHost" . }}
+  labels:
+    {{- include "fossology.labels" (dict "ctx" . "component" "db") | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "fossology.selectorLabels" (dict "ctx" . "component" "db") | nindent 6 }}
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - podSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values: [{{ .Release.Name | quote }}]
+              - key: app.kubernetes.io/component
+                operator: In
+                values: ["scheduler", "web", "worker", "migration"]
+      ports:
+        - protocol: TCP
+          port: 5432
+{{- end }}
+{{- end }}
