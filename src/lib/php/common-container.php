@@ -53,11 +53,14 @@ if ($cached) {
 
   if ($cacheDir && is_dir($cacheDir)) {
     $dumper = new PhpDumper($container);
-    umask(0027);
-    file_put_contents($cacheFile,
+    // Concurrent agents must never require a half-written cache file.
+    $tmpFile = tempnam($cacheDir, 'container');
+    file_put_contents($tmpFile,
       $dumper->dump(array(
         'class' => $containerClassName
       )));
+    chmod($tmpFile, 0640);
+    rename($tmpFile, $cacheFile);
   }
 }
 
