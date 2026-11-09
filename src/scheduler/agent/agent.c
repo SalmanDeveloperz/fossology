@@ -391,7 +391,9 @@ static void agent_listen(scheduler_t* scheduler, agent_t* agent)
       con_printf(main_log, "META_AGENT[%s.%s] version is: \"%s\"\n", agent->host->name, agent->type->name,
           agent->type->version);
   }
-  else if (strcmp(agent->type->version, version_str) != 0)
+  /* version stays NULL when another host invalidated the type first */
+  else if (agent->type->version != NULL &&
+      strcmp(agent->type->version, version_str) != 0)
   {
     /* Version mismatch: hard-fail during startup tests (id<0); adopt new version at runtime. */
     if (agent->owner != NULL && agent->owner->id < 0)
