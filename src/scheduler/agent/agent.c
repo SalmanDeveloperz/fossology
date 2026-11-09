@@ -834,7 +834,9 @@ static void* agent_spawn(agent_spawn_args* pass)
     else
     {
       args = g_new0(char*, 5);
-      len = snprintf(buffer, sizeof(buffer), AGENT_BINARY " --userID=%d --groupID=%d --scheduler_start --jobId=%d",
+      /* raw_cmd already ends in --scheduler_start; repeating it makes
+       * boost::program_options agents reject the command line */
+      len = snprintf(buffer, sizeof(buffer), AGENT_BINARY " --userID=%d --groupID=%d --jobId=%d",
                      agent->host->agent_dir, AGENT_CONF, agent->type->name, agent->type->raw_cmd,
                      agent->owner->user_id, agent->owner->group_id, agent->owner->parent_id);
 
