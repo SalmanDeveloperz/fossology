@@ -42,9 +42,24 @@ class AgentDao
   public function createArsTable($agentName)
   {
     $tableName = $this->getArsTableName($agentName);
-    $this->dbManager->queryOnce("CREATE TABLE ".$tableName."() INHERITS(ars_master);
-    ALTER TABLE ONLY ".$tableName." ADD CONSTRAINT ".$tableName."_agent_fk_fkc FOREIGN KEY (agent_fk) REFERENCES agent(agent_pk);
-    ALTER TABLE ONLY ".$tableName." ADD CONSTRAINT ".$tableName."_upload_fk_fkc FOREIGN KEY (upload_fk) REFERENCES upload(upload_pk) ON DELETE CASCADE", __METHOD__);
+    $this->dbManager->begin();
+    $this->lock("ars:" . $tableName);
+    if (!$this->dbManager->existsTable($tableName)) {
+      $this->dbManager->queryOnce("CREATE TABLE ".$tableName."() INHERITS(ars_master);
+      ALTER TABLE ONLY ".$tableName." ADD CONSTRAINT ".$tableName."_agent_fk_fkc FOREIGN KEY (agent_fk) REFERENCES agent(agent_pk);
+      ALTER TABLE ONLY ".$tableName." ADD CONSTRAINT ".$tableName."_upload_fk_fkc FOREIGN KEY (upload_fk) REFERENCES upload(upload_pk) ON DELETE CASCADE", __METHOD__);
+    }
+    $this->dbManager->commit();
+  }
+
+  /**
+   * Agents sharing a name (e.g. scheduler agents spdx and spdx2) start
+   * concurrently, so check-then-create must hold a lock until commit.
+   */
+  private function lock($key)
+  {
+    $this->dbManager->getSingleRow("SELECT pg_advisory_xact_lock(hashtext($1))",
+      array("fossology." . $key), __METHOD__);
   }
 
   public function writeArsRecord($agentName,$agentId,$uploadId,$arsId=0,$success=false,$status="")
@@ -87,6 +102,8 @@ class AgentDao
 
   public function getCurrentAgentId($agentName, $agentDesc="", $agentRev="")
   {
+    $this->dbManager->begin();
+    $this->lock("agent:" . $agentName);
     $row = $this->dbManager->getSingleRow(
       "SELECT agent_pk FROM agent WHERE agent_name = $1 order by agent_ts desc limit 1",
       array($agentName), __METHOD__."select"
@@ -97,10 +114,12 @@ class AgentDao
         "INSERT INTO agent(agent_name,agent_desc,agent_rev) VALUES ($1,$2,$3) RETURNING agent_pk",
         array($agentName, $agentDesc, $agentRev), __METHOD__."insert"
       );
-      return false !== $row ? intval($row['agent_pk']) : -1;
+      $agentId = false !== $row ? intval($row['agent_pk']) : -1;
+    } else {
+      $agentId = intval($row['agent_pk']);
     }
-
-    return intval($row['agent_pk']);
+    $this->dbManager->commit();
+    return $agentId;
   }
 
   /**
